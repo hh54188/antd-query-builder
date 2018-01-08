@@ -1,33 +1,38 @@
 import React from 'react'
-import {Button, Icon, Dropdown, Menu} from 'antd'
-
-import './index.less'
+import {Button, Icon, Dropdown, Menu, Select} from 'antd'
 
 const {Group: ButtonGroup} = Button
 const {Item: MenuItem} = Menu
+const {Option} = Select
+
+import './index.less'
 
 function Controller() {
-  const menu = (
+  const relationMenu = (
     <Menu>
-      <MenuItem key="1">规则</MenuItem>
-      <MenuItem key="2">小组</MenuItem>
+      <MenuItem key="and">且</MenuItem>
+      <MenuItem key="or">或</MenuItem>
     </Menu>
   )
-
+  const addMenu = (
+    <Menu>
+      <MenuItem key="rule">规则</MenuItem>
+      <MenuItem key="group">规则组</MenuItem>
+    </Menu>
+  )
   return (
-    <div>
-      <ButtonGroup size="small">
+    <div className="controller">
+      <ButtonGroup>
         <Button type="primary">且</Button>
         <Button>或</Button>
-        <Dropdown overlay={menu}>
+        <Dropdown overlay={addMenu}>
           <Button>
             <Icon type="plus" />
             <span>添加</span>
             <Icon type="down" />
           </Button>
         </Dropdown>
-        <Button type="danger">
-          <Icon type="close" />
+        <Button icon="delete" type="danger">
           <span>删除</span>
         </Button>
       </ButtonGroup>

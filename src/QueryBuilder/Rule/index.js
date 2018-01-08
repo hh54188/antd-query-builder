@@ -6,34 +6,39 @@ import CONDITIONS from './constants/CONDITIONS'
 
 const {Item: FormItem} = Form
 const {Option} = Select
+const {Group: ButtonGroup} = Button
 
-const SELECT_STYLE = {
-  width: '120px',
-}
+import './index.less'
 
 function Rule() {
   const preConditionKeys = Object.keys(PRE_CONDITIONS)
   const conditionKeys = Object.keys(CONDITIONS)
 
   return (
-    <div>
-      <Select size="small" style={SELECT_STYLE} value={preConditionKeys[0]}>
+    <div className="Rule">
+      <Select
+        className="Rule__PreCondition Rule__Item"
+        value={preConditionKeys[0]}
+      >
         {preConditionKeys.map(preConditionKey => (
           <Option key={preConditionKey} value={preConditionKey}>
             {PRE_CONDITIONS[preConditionKey]}
           </Option>
         ))}
       </Select>
-      <Select size="small" style={SELECT_STYLE} />
-      <Select size="small" style={SELECT_STYLE} value={conditionKeys[0]}>
+      <Select className="Rule__Option Rule__Item" />
+      <Select className="Rule__Condition Rule__Item" value={conditionKeys[0]}>
         {conditionKeys.map(conditionKey => (
           <Option key={conditionKey} value={conditionKey}>
             {CONDITIONS[conditionKey]}
           </Option>
         ))}
       </Select>
-      <Input style={SELECT_STYLE} size="small" />
-      <Button icon="delete" size="small" type="danger" />
+      <Input className="Rule__Value Rule__Item" />
+      <ButtonGroup className="Rule__Item">
+        <Button icon="copy" />
+        <Button icon="delete" type="danger" />
+      </ButtonGroup>
     </div>
   )
 }
