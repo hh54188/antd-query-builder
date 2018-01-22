@@ -1,10 +1,11 @@
 import React from 'react'
-import {Input, Select, Form, Button, Icon} from 'antd'
+import {Input, Select, Button} from 'antd'
 
 import PRE_CONDITIONS from './constants/PRE_CONDITIONS'
 import CONDITIONS from './constants/CONDITIONS'
 
-const {Item: FormItem} = Form
+import Splitline from '../Splitline'
+
 const {Option} = Select
 const {Group: ButtonGroup} = Button
 
@@ -16,8 +17,9 @@ function Rule() {
 
   return (
     <div className="Rule">
+      <Splitline />
       <Select
-        className="Rule__PreCondition Rule__Item"
+        className="Rule__PreCondition Rule__Item NoMargin"
         value={preConditionKeys[0]}
       >
         {preConditionKeys.map(preConditionKey => (
@@ -26,7 +28,7 @@ function Rule() {
           </Option>
         ))}
       </Select>
-      <Select className="Rule__Option Rule__Item" />
+      <Select className="Rule__Field Rule__Item" />
       <Select className="Rule__Condition Rule__Item" value={conditionKeys[0]}>
         {conditionKeys.map(conditionKey => (
           <Option key={conditionKey} value={conditionKey}>

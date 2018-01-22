@@ -1,19 +1,26 @@
 .Rule {
-  display: inline-block;
+  position: relative;
+  display: flex;
   margin-bottom: 10px;
   &__Item {
     margin-left: 10px;
   }
   &__PreCondition {
-    width: 80px;
+    min-width: 80px;
   }
-  &__Option {
-    width: 120px;
-  }
-  &__Value {
-    width: 120px;
+  &__Field {
+    flex: 2;
   }
   &__Condition {
-    width: 100px;
+    min-width: 100px;
   }
+  &__Value {
+    flex: 2;
+  }
+}
+
+/* 很奇怪用 Rule__Item: first-of-type 没法生效
+只能暂时用这种蹩脚的办法 */
+.NoMargin {
+  margin-left: 0;
 }
