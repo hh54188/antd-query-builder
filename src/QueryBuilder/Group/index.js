@@ -7,55 +7,94 @@ import Splitline from '../Splitline'
 
 import './index.less'
 
-function Group() {
+function Group({
+  path,
+
+  query,
+  disableSplitline,
+  disableGroup,
+  preconditions,
+  operations,
+  fieldsList,
+  fieldsDict,
+
+  onAddGroup,
+  onAddRule,
+  onDeleteGroup,
+  onChangeRelation,
+
+  onDuplicateRule,
+  onDeleteRule,
+
+  onFieldChange,
+  onOperationChange,
+  onValueChange,
+}) {
+  const relation = query.get('relation')
+  const data = query.get('data')
+  const isRootGroup = !path.length
+
   return (
     <div className="Group">
       <div className="Group__Controller">
-        <Controller />
+        {!isRootGroup && <Splitline />}
+        <Controller
+          path={path}
+          disableDeleteGroup={isRootGroup}
+          relation={relation}
+          disableGroup={disableGroup}
+          onAddGroup={onAddGroup}
+          onAddRule={onAddRule}
+          onDeleteGroup={onDeleteGroup}
+          onChangeRelation={onChangeRelation}
+        />
       </div>
       <div className="Group__Rules">
         <Guideline />
-        <Rule />
-        <Rule />
-        <Rule />
-        <div className="Group">
-          <div className="Group__Controller">
-            <Splitline />
-            <Controller />
-          </div>
-          <div className="Group__Rules">
-            <Guideline />
-            <Rule />
-            <Rule />
-            <Rule />
-            <div className="Group">
-              <div className="Group__Controller">
-                <Splitline />
-
-                <Controller />
-              </div>
-              <div className="Group__Rules">
-                <Guideline />
-                <Rule />
-                <Rule />
-                <Rule />
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="Group">
-          <div className="Group__Controller">
-            <Splitline />
-
-            <Controller />
-          </div>
-          <div className="Group__Rules">
-            <Guideline />
-            <Rule />
-            <Rule />
-            <Rule />
-          </div>
-        </div>
+        {data.map((item, index) => {
+          const type = item.get('type')
+          if (type === 'rule') {
+            return (
+              <Rule
+                path={path.concat(['data', index])}
+                query={item}
+                key={index}
+                preconditions={preconditions}
+                operations={operations}
+                fieldsList={fieldsList}
+                fieldsDict={fieldsDict}
+                onDuplicateRule={onDuplicateRule}
+                onFieldChange={onFieldChange}
+                onOperationChange={onOperationChange}
+                onValueChange={onValueChange}
+                onDeleteRule={onDeleteRule}
+              />
+            )
+          } else if (type === 'group') {
+            return (
+              <Group
+                path={path.concat(['data', index])}
+                key={index}
+                disableGroup={disableGroup}
+                preconditions={preconditions}
+                operations={operations}
+                fieldsList={fieldsList}
+                fieldsDict={fieldsDict}
+                query={item}
+                onAddGroup={onAddGroup}
+                onAddRule={onAddRule}
+                onDeleteGroup={onDeleteGroup}
+                onChangeRelation={onChangeRelation}
+                onDuplicateRule={onDuplicateRule}
+                onFieldChange={onFieldChange}
+                onOperationChange={onOperationChange}
+                onValueChange={onValueChange}
+                onDeleteRule={onDeleteRule}
+              />
+            )
+          }
+          return null
+        })}
       </div>
     </div>
   )

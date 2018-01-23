@@ -2832,7 +2832,7 @@ image-size@~0.5.0:
   version "0.5.5"
   resolved "http://npm.in.zhihu.com/image-size/-/image-size-0.5.5.tgz#09dfd4ab9d20e29eb1c3e80b8990378df9e3cb9c"
 
-immutable@^3.7.4:
+immutable@^3.7.4, immutable@^3.8.2:
   version "3.8.2"
   resolved "http://npm.in.zhihu.com/immutable/-/immutable-3.8.2.tgz#c2439951455bb39913daf281376f1530e104adf3"
 
@@ -4327,6 +4327,10 @@ preserve@^0.2.0:
 prettier@1.6.1:
   version "1.6.1"
   resolved "http://npm.in.zhihu.com/prettier/-/prettier-1.6.1.tgz#850f411a3116226193e32ea5acfc21c0f9a76d7d"
+
+prettier@^1.10.2:
+  version "1.10.2"
+  resolved "http://npm.in.zhihu.com/prettier/-/prettier-1.10.2.tgz#1af8356d1842276a99a5b5529c82dd9e9ad3cc93"
 
 pretty-error@^2.0.2:
   version "2.1.1"
