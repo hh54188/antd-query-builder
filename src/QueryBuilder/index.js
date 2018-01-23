@@ -30,11 +30,46 @@ class QueryBuilder extends React.Component {
     this.onValueChange = this.onValueChange.bind(this)
 
     this.submit = this.submit.bind(this)
+
+    this.clearEmptyGroup = this.clearEmptyGroup.bind(this)
   }
   submit() {
     const {onChange = DEFAULT_FUNCTION} = this.props
     const {query} = this.state
     onChange(query.toJS())
+  }
+  clearEmptyGroup(query) {
+    // TODO: 这个函数仍然不完美
+    // 无法连续向上追溯删除多个 Group
+    // （但是这真的是个 BUG 吗？有没有必要连续消除呢）
+    const data = query.get('data')
+    return query.set(
+      'data',
+      data
+        .map(item => {
+          return clear(item)
+        })
+        .filter(item => !!item)
+    )
+
+    function clear(query) {
+      const type = query.get('type')
+      let data = query.get('data')
+      if (type === 'group' && !data.size) {
+        return null
+      } else if (type === 'rule') {
+        return query
+      } else if (type === 'group' && data.size) {
+        return query.set(
+          'data',
+          data
+            .map(item => {
+              return clear(item)
+            })
+            .filter(item => !!item)
+        )
+      }
+    }
   }
   onAddGroup(path) {
     const {query} = this.state
@@ -73,10 +108,12 @@ class QueryBuilder extends React.Component {
     )
   }
   onDeleteGroup(path) {
-    const {query} = this.state
+    let {query} = this.state
+    query = query.deleteIn(path)
+    query = this.clearEmptyGroup(query)
     this.setState(
       {
-        query: query.deleteIn(path),
+        query,
       },
       () => {
         this.submit()
@@ -97,6 +134,7 @@ class QueryBuilder extends React.Component {
   onDeleteRule(path) {
     let {query} = this.state
     query = query.deleteIn(path)
+    query = this.clearEmptyGroup(query)
     // TODO:
     // 当某个 Group 的 data 中的 rules 被清空时
     // 该 Group 也应该被删除
