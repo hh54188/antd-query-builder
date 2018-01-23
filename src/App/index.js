@@ -111,6 +111,8 @@ const fieldsDict = fromJS({
   },
 })
 
+const operations = fromJS([])
+
 class App extends React.Component {
   constructor(props) {
     super(props)
@@ -123,10 +125,8 @@ class App extends React.Component {
     return (
       <Card>
         <QueryBuilder
-          disableGroup={true}
           onChange={this.onChange}
           fieldsList={fieldsList}
-          fieldsDict={fieldsDict}
           query={data}
         />
       </Card>
