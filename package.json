@@ -18,7 +18,7 @@
     "uglifyjs-webpack-plugin": "^1.1.6",
     "url-loader": "^0.6.2",
     "webpack": "^3.10.0",
-    "webpack-dev-server": "^2.9.7",
+    "webpack-dev-server": "^5.2.2",
     "webpack-merge": "^4.1.1",
     "zhihu-lint": "^0.1.0"
   },
@@ -26,7 +26,7 @@
     "antd": "3.1.0",
     "classnames": "^2.2.5",
     "immutable": "^3.8.2",
-    "lodash": "4.17.2",
+    "lodash": "4.17.21",
     "react": "15.4.2",
     "react-dom": "15.4.2"
   },
